@@ -18,7 +18,33 @@ namespace MonkeyTester
 
         private void btnTest_Click(object sender, EventArgs e)
         {
+            if (!test1())
+            {
+                txtbxOutput.Text += "\r\ntest1 Failed.";
 
+            }
+            else
+            {
+                txtbxOutput.Text += "\r\ntest1 passed.";
+            }
+        }
+
+
+        //Add some monkeys to the left side, and move them accross.
+        private bool test1()
+        {
+            
+            var mm = new MonkeyBusiness.MonkeyManager();
+            mm.AddMonkey(MonkeyBusiness.CHASMSIDE.LEFT);
+            mm.AddMonkey(MonkeyBusiness.CHASMSIDE.LEFT);
+            mm.AddMonkey(MonkeyBusiness.CHASMSIDE.LEFT);
+            txtbxOutput.Text += "\r\n" + mm.ErrorString();
+            if (mm.ErrorString() != "")
+            {
+                return false;
+            } else {
+                return true;
+            }
         }
     }
 }

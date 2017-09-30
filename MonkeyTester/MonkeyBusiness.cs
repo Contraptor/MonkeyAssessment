@@ -15,14 +15,35 @@ namespace MonkeyBusiness
     class MonkeyManager
     {
         private List<Monkey> monkeys;
+        private List<string> myErrors;
 
         private void clear()
         {
             monkeys = new List<Monkey>();
+            myErrors = new List<string>();
         }
         public MonkeyManager()
         {
             this.clear();
+        }
+
+        public List<string> Errors()
+        {
+            var tmpList = new List<string>();
+            foreach (Monkey element in monkeys)
+            {
+                tmpList.AddRange(element.Errors);
+            }
+            return tmpList;
+        }
+        public String ErrorString()
+        {
+            var sblist = new System.Text.StringBuilder();
+            foreach (string s in this.Errors())
+            {
+                sblist.AppendLine(s);
+            }
+            return sblist.ToString();
         }
 
         public List<Monkey> LeftMonkeys()
@@ -40,7 +61,7 @@ namespace MonkeyBusiness
                     select m).ToList();
         }
 
-        public integer AddMonkey(CHASMSIDE sideToAddTo)
+        public Int32 AddMonkey(CHASMSIDE sideToAddTo)
         {
             monkeys.Add(new Monkey(sideToAddTo));
             switch (sideToAddTo)
@@ -50,9 +71,12 @@ namespace MonkeyBusiness
 
                 case CHASMSIDE.RIGHT:
                     return RightMonkeys().Count();
-
+                default:
+                    myErrors.Add("AddMonkey(...), Unexpected side or return path");
+                    return -1;
             }
-
+            myErrors.Add("AddMonkey(...), Unexpected side or return path");
+            return -1;
                   
         }
 
@@ -110,6 +134,7 @@ namespace MonkeyBusiness
                     {
                         return this.Spot + 1;
                     }
+                    //break;
                 case CHASMSIDE.RIGHT:
 
                     //if the monkey is on the right side of the chasm, they move from off to 3,
@@ -123,8 +148,10 @@ namespace MonkeyBusiness
                     {
                         return this.Spot -= 1;
                     }
+                    //break;
                 default:
                     Errors.Add("PeekNextPostion:Unexpected side of chasm");
+                    break;
             }
 
             Errors.Add("PeekNextPostion:Should not get here, missed a condition!");
