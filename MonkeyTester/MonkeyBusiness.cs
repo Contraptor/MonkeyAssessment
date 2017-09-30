@@ -12,6 +12,20 @@ namespace MonkeyBusiness
 
 
 
+    class MonkeyManager
+    {
+        private List<Monkey> monkeys;
+
+        //public List<Monkey> LeftMonkeys()
+        //{
+
+        //}
+        //public List<Monkey> RightMonkeys()
+        //{
+
+        //}
+    }
+
     class Monkey
     {
         public CHASMSIDE Side;
@@ -32,17 +46,57 @@ namespace MonkeyBusiness
             this.Side = startingSide;
         }
 
+        /// <summary>
+        /// Set next postion, iterate CrossingCount if moving from on rope to off rope.
+        /// </summary>
+        public void SetNextPosition()
+        {
+            if (this.PeekNextPosition() == POSITION.OFF)
+            {
+                //monkey has crossed chasm, so count it.
+                CrossingCount += 1;
+            }
+            this.Spot = this.PeekNextPosition();
+        }
+
+        /// <summary>
+        /// Peek at what the next position is (dont' actually change the Spot.
+        /// </summary>
+        /// <returns>The monkeys next spot... valid if they're in position to move.</returns>
         public POSITION PeekNextPosition()
         {
             switch (this.Side)
             {
                 case CHASMSIDE.LEFT:
-
+                    //If we're on the left side, we can iterate by one...
+                    //unless we're on spot 3 in which case we must go back to 0/off.
+                    if (this.Spot == POSITION.THREE)
+                    {
+                        return POSITION.OFF;
+                    }
+                    else
+                    {
+                        return this.Spot + 1;
+                    }
                 case CHASMSIDE.RIGHT:
 
+                    //if the monkey is on the right side of the chasm, they move from off to 3,
+                    //from their they move from 3 to 1.
+                    //if they're not yet 
+                    if (this.Spot == POSITION.OFF)
+                    {
+                        return POSITION.THREE;
+                    }
+                    else
+                    {
+                        return this.Spot -= 1;
+                    }
                 default:
                     Errors.Add("PeekNextPostion:Unexpected side of chasm");
             }
+
+            Errors.Add("PeekNextPostion:Should not get here, missed a condition!");
+            return POSITION.OFF;
         }
 
     }
