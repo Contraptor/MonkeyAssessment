@@ -16,6 +16,46 @@ namespace MonkeyTester
             InitializeComponent();
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            txtbxOutput.Text = "";
+            if (!testC())
+            {
+                txtbxOutput.Text += "\r\ntestC Failed.";
+
+            }
+            else
+            {
+                txtbxOutput.Text += "\r\ntestC passed.";
+            }
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+            if (!testB())
+            {
+                txtbxOutput.Text += "\r\ntestB Failed.";
+
+            }
+            else
+            {
+                txtbxOutput.Text += "\r\ntestB passed.";
+            }
+        }
+        private void btnTestD_Click(object sender, EventArgs e)
+        {
+            txtbxOutput.Text = "";
+            if (!testD())
+            {
+                txtbxOutput.Text += "\r\ntestD Failed.";
+
+            }
+            else
+            {
+                txtbxOutput.Text += "\r\ntestD passed.";
+            }
+        }
+
         private void btnTest_Click(object sender, EventArgs e)
         {
             if (!testA())
@@ -26,15 +66,6 @@ namespace MonkeyTester
             else
             {
                 txtbxOutput.Text += "\r\ntestA passed.";
-            }
-            if (!testB())
-            {
-                txtbxOutput.Text += "\r\ntestB Failed.";
-
-            }
-            else
-            {
-                txtbxOutput.Text += "\r\ntestB passed.";
             }
 
 
@@ -88,6 +119,64 @@ namespace MonkeyTester
             return false;
         }
 
+
+
+        //Add two monkeys to the left side, and move them accross
+        private bool testC()
+        {
+            var mm = new MonkeyBusiness.MonkeyManager();
+            mm.AddMonkey(MonkeyBusiness.CHASMSIDE.LEFT);
+            mm.AddMonkey(MonkeyBusiness.CHASMSIDE.RIGHT);
+            mm.AddMonkey(MonkeyBusiness.CHASMSIDE.LEFT);
+            mm.AddMonkey(MonkeyBusiness.CHASMSIDE.RIGHT);
+            mm.AddMonkey(MonkeyBusiness.CHASMSIDE.LEFT);
+            mm.AddMonkey(MonkeyBusiness.CHASMSIDE.RIGHT);
+            mm.AddMonkey(MonkeyBusiness.CHASMSIDE.LEFT);
+            mm.AddMonkey(MonkeyBusiness.CHASMSIDE.RIGHT);
+            for (int i = 0; i < 10; i++)
+            {
+                mm.MoveMonkeys(1);
+                //txtbxOutput.Text += "\r\n[" + Convert.ToString(i) + "] Moving Monkey from " + Enum.GetName(m.Spot.GetType(), m.Spot) + " to " + Enum.GetName(m.PeekNextPosition().GetType(), m.PeekNextPosition());
+                // m.SetNextPosition();
+            }
+
+            txtbxOutput.Text += "\r\n" + mm.ErrorString();
+            if (mm.ErrorString() != "")
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        //Add two monkeys to the left side, and move them accross
+        private bool testD()
+        {
+            var mm = new MonkeyBusiness.MonkeyManager();
+            for (int lr = 0; lr < 100; lr++)
+            {
+                mm.AddMonkey(MonkeyBusiness.CHASMSIDE.LEFT);
+                mm.AddMonkey(MonkeyBusiness.CHASMSIDE.RIGHT);
+            }
+
+            for (int i = 0; i < 10; i++)
+            {
+                mm.MoveMonkeys(1);
+            }
+
+            txtbxOutput.Text += "\r\n" + mm.ErrorString();
+            if (mm.ErrorString() != "")
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         //Add some monkeys to the left side, and move them accross.
         private bool test1()
         {
@@ -104,6 +193,9 @@ namespace MonkeyTester
                 return true;
             }
         }
+
+
+
     }
 }
 

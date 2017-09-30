@@ -63,14 +63,14 @@ namespace MonkeyBusiness
             POSITION nextPostion = POSITION.THREE; //CurrentDirectionQueue returns different value after we call SetNextPostion in some cases.
 
             Int32 i = 0;
-            Console.WriteLine("----Moving MOnkeys----");
+            Console.WriteLine("----Moving Monkeys----");
             Int32 queueCount = CurrentDirectionQueueCount();
             foreach (Monkey element in CurrentDirectionQueue())
             {
 
             //for (int i = 0; i < CurrentDirectionQueueCount() - _MonkeyCrossingCount; i++)
             //{
-                if ((i > 4) || (i != 0 && (element.Spot == priorPosition)))
+                if ((i >= 4) || (i != 0 && (element.Spot == priorPosition)))
                 {
                     break;
                 }
@@ -84,8 +84,9 @@ namespace MonkeyBusiness
                     removeIndex = i;
                     traversedMonkey = element;
                     _MonkeyCrossingCount += 1;
+                    Console.WriteLine("--" + Convert.ToString(_MonkeyCrossingCount) + " Monkeys have crossed in this direction.");
                     //if ((_MonkeyCrossingCount == 4) || (i == (CurrentDirectionQueueCount() - _MonkeyCrossingCount)))
-                    if (i == (queueCount - _MonkeyCrossingCount) || queueCount == 1)
+                    if ((4 == _MonkeyCrossingCount) || queueCount == 1)
                     {
                         //max number of monkeys have cross in this direction, so be fair and share.
                         _MonkeyCrossingCount = 0;  //reset to zero
@@ -252,11 +253,11 @@ namespace MonkeyBusiness
                 switch (this.Side)
                 {
                     case CHASMSIDE.LEFT:
-                        Console.WriteLine("Moving monkey from rope to Right side.");
+                        Console.WriteLine("Monkey is transitioning from rope to Right side.");
                         this.Side = CHASMSIDE.RIGHT;
                         break;
                     case CHASMSIDE.RIGHT:
-                        Console.WriteLine("Moving monkey from rope to Left side.");
+                        Console.WriteLine("Monkey is transitioning from rope to Left side.");
                         this.Side = CHASMSIDE.LEFT;
                         break;
                     default:
