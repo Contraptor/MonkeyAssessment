@@ -59,12 +59,14 @@ namespace MonkeyBusiness
             //} while (move < moves);
             MonkeyBusiness.Monkey traversedMonkey = null;
             Int32 removeIndex = -1;
+            POSITION priorPosition = POSITION.THREE;  //Keep trak of the prior position, if we're ever moving from this position, we can esc.
             for (int i = 0; i < CurrentDirectionQueueCount(); i++)
             {
-                if (i >= 4)
+                if ((i >= 4) || (i != 0 && (this.CurrentDirectionQueue()[i].Spot == priorPosition)))
                 {
                     break;
                 }
+                priorPosition = this.CurrentDirectionQueue()[i].Spot;
                 this.CurrentDirectionQueue()[i].SetNextPosition();
                 movedAMonkey = true;
                 //if the monkey has moved off of the rope, move them to the back of the line.
