@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Collections.Generic;
+//using System.Collections.Generic;
 
 namespace MonkeyBusiness
 {
@@ -27,6 +27,10 @@ namespace MonkeyBusiness
             this._MonkeyCrossingCount = 0;
         }
 
+        /// <summary>
+        /// Set the max number of times a Monkey is allowed to cross the chasm.
+        /// </summary>
+        /// <param name="Max"></param>
         public void SetChasmCrossingMax(Int32 Max)
         {
             this._ChasmCrossingMax = Max;
@@ -83,6 +87,9 @@ namespace MonkeyBusiness
                     return false;
                 }
 
+                //Break if we've iterated throu 4 monkeys (no need to do more.
+                //Break if we've iterated through enough monkeys to allow for our quota
+                //Break if we're pulling from the same pool of monkeys as before.
                 if ((i >= 4) || (i > (4 - _MonkeyCrossingCount)) || (i != 0 && (element.Spot == priorPosition)))
                 {
                     break;
@@ -118,22 +125,6 @@ namespace MonkeyBusiness
                 i += 1;
             }
 
-            //if (i == (queueCount - _MonkeyCrossingCount))
-            //{
-            //    //max number of monkeys have cross in this direction, so be fair and share.
-            //    _MonkeyCrossingCount = 0;  //reset to zero
-
-            //    //Switch direction.
-            //    if (this.currentDirection == CHASMSIDE.RIGHT)
-            //    {
-            //        this.currentDirection = CHASMSIDE.LEFT;
-            //    }
-            //    else
-            //    {
-            //        this.currentDirection = CHASMSIDE.RIGHT;
-            //    }
-            //}
-
             if (traversedMonkey != null)
             {
                 //I've never really had to do this before, there is no doubt a better way
@@ -145,6 +136,10 @@ namespace MonkeyBusiness
             return movedAMonkey; 
         }
 
+        /// <summary>
+        /// Compile any and all errors into a list of strings.
+        /// </summary>
+        /// <returns></returns>
         public List<string> Errors()
         {
             var tmpList = new List<string>();
@@ -158,6 +153,11 @@ namespace MonkeyBusiness
             }
             return tmpList;
         }
+
+        /// <summary>
+        /// Return errors in string format. 
+        /// </summary>
+        /// <returns>Best for dumping into teset GUI.</returns>
         public String ErrorString()
         {
             var sblist = new System.Text.StringBuilder();
@@ -178,13 +178,21 @@ namespace MonkeyBusiness
 
         //}
 
+        /// <summary>
+        /// Return a list of Monkey that are on the Left side of the Chasm.
+        /// </summary>
+        /// <returns></returns>
         public List<Monkey> LeftMonkeys()
         {
             return (from m in monkeys
                     where m.Side == CHASMSIDE.LEFT
                     select m).ToList();
-
         }
+
+        /// <summary>
+        /// Return a list of Monkey that are on the Right side of the Chasm.
+        /// </summary>
+        /// <returns></returns>
         public List<Monkey> RightMonkeys()
         {
 
@@ -193,6 +201,10 @@ namespace MonkeyBusiness
                     select m).ToList();
         }
 
+        /// <summary>
+        /// Get the count of monkeys on the side of the Chasm currently be processed.
+        /// </summary>
+        /// <returns>Int32</returns>
         public Int32 CurrentDirectionQueueCount()
         {
             switch (this.currentDirection)
@@ -204,6 +216,11 @@ namespace MonkeyBusiness
             }
             return -1;
         }
+
+        /// <summary>
+        /// Return a list of Monkey on the side of the Chasm currently being processed.
+        /// </summary>
+        /// <returns></returns>
         public List<Monkey> CurrentDirectionQueue()
         {
             switch (this.currentDirection)
@@ -216,6 +233,11 @@ namespace MonkeyBusiness
 
         }
 
+        /// <summary>
+        /// Add a monkey to the rand & file.
+        /// </summary>
+        /// <param name="sideToAddTo">The side to add the Monkey to.</param>
+        /// <returns>Integer representing the monkey's place on their side of the chasm.</returns>
         public Int32 AddMonkey(CHASMSIDE sideToAddTo)
         {
             monkeys.Add(new Monkey(sideToAddTo));

@@ -130,7 +130,14 @@ namespace MonkeyTester
                 //txtbxOutput.Text += "\r\n[" + Convert.ToString(i) + "] Moving Monkey from " + Enum.GetName(m.Spot.GetType(), m.Spot) + " to " + Enum.GetName(m.PeekNextPosition().GetType(), m.PeekNextPosition());
                // m.SetNextPosition();
             }
-            return false;
+            if (mm.ErrorString() != "")
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
 
