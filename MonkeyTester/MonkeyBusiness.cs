@@ -128,13 +128,30 @@ namespace MonkeyBusiness
         /// </summary>
         public void SetNextPosition()
         {
-            if (this.PeekNextPosition() == POSITION.OFF)
+            POSITION nextPos = this.PeekNextPosition();
+            if (nextPos == POSITION.OFF)
             {
                 //monkey has crossed chasm, so count it.
                 CrossingCount += 1;
+
+                //Move the monkey to the other side of the chasm.
+                switch (this.Side)
+                {
+                    case CHASMSIDE.LEFT:
+                        Console.WriteLine("Moving monkey from rope to Right side.");
+                        this.Side = CHASMSIDE.RIGHT;
+                        break;
+                    case CHASMSIDE.RIGHT:
+                        Console.WriteLine("Moving monkey from rope to Left side.");
+                        this.Side = CHASMSIDE.LEFT;
+                        break;
+                    default:
+                        Errors.Add("SetNextPosition: unexpected side of chasm.");
+                        break;
+                }
             }
-            Console.WriteLine("Moving monkey from " + this.Spot + " to " + this.PeekNextPosition());
-            this.Spot = this.PeekNextPosition();
+            Console.WriteLine("Moving monkey from " + this.Spot + " to " + nextPos);
+            this.Spot = nextPos;
         }
 
         /// <summary>
