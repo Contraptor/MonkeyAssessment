@@ -33,6 +33,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.btnTestD = new System.Windows.Forms.Button();
+            this.btnTestE = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnTest
@@ -50,16 +51,16 @@
             this.txtbxOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtbxOutput.Location = new System.Drawing.Point(12, 47);
+            this.txtbxOutput.Location = new System.Drawing.Point(12, 77);
             this.txtbxOutput.Multiline = true;
             this.txtbxOutput.Name = "txtbxOutput";
             this.txtbxOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtbxOutput.Size = new System.Drawing.Size(656, 376);
+            this.txtbxOutput.Size = new System.Drawing.Size(656, 346);
             this.txtbxOutput.TabIndex = 1;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(169, 18);
+            this.button1.Location = new System.Drawing.Point(12, 48);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(151, 23);
             this.button1.TabIndex = 2;
@@ -69,7 +70,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(326, 18);
+            this.button2.Location = new System.Drawing.Point(169, 18);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(151, 23);
             this.button2.TabIndex = 3;
@@ -79,7 +80,7 @@
             // 
             // btnTestD
             // 
-            this.btnTestD.Location = new System.Drawing.Point(483, 18);
+            this.btnTestD.Location = new System.Drawing.Point(169, 48);
             this.btnTestD.Name = "btnTestD";
             this.btnTestD.Size = new System.Drawing.Size(151, 23);
             this.btnTestD.TabIndex = 4;
@@ -87,11 +88,22 @@
             this.btnTestD.UseVisualStyleBackColor = true;
             this.btnTestD.Click += new System.EventHandler(this.btnTestD_Click);
             // 
+            // btnTestE
+            // 
+            this.btnTestE.Location = new System.Drawing.Point(326, 18);
+            this.btnTestE.Name = "btnTestE";
+            this.btnTestE.Size = new System.Drawing.Size(151, 23);
+            this.btnTestE.TabIndex = 5;
+            this.btnTestE.Text = "TestE";
+            this.btnTestE.UseVisualStyleBackColor = true;
+            this.btnTestE.Click += new System.EventHandler(this.btnTestE_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(680, 435);
+            this.Controls.Add(this.btnTestE);
             this.Controls.Add(this.btnTestD);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -111,6 +123,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button btnTestD;
+        private System.Windows.Forms.Button btnTestE;
     }
 }
 

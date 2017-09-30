@@ -26,6 +26,12 @@ namespace MonkeyBusiness
             this._ChasmCrossingMax = 2;
             this._MonkeyCrossingCount = 0;
         }
+
+        public void SetChasmCrossingMax(Int32 Max)
+        {
+            this._ChasmCrossingMax = Max;
+        }
+
         public MonkeyManager()
         {
             this.clear();
@@ -70,7 +76,14 @@ namespace MonkeyBusiness
 
             //for (int i = 0; i < CurrentDirectionQueueCount() - _MonkeyCrossingCount; i++)
             //{
-                if ((i >= 4) || (i != 0 && (element.Spot == priorPosition)))
+                if (element.CrossingCount >= this._ChasmCrossingMax)
+                {
+                    Console.WriteLine("This monkey has already crossed the chasm " + Convert.ToString(element.CrossingCount) + " times.");
+                    myErrors.Add("A monkey has already crossed the chasm " + Convert.ToString(element.CrossingCount) + " times.");
+                    return false;
+                }
+
+                if ((i >= 4) || (i > (4 - _MonkeyCrossingCount)) || (i != 0 && (element.Spot == priorPosition)))
                 {
                     break;
                 }
@@ -123,8 +136,9 @@ namespace MonkeyBusiness
 
             if (traversedMonkey != null)
             {
-
-                this.monkeys.Remove(this.monkeys.First());
+                //I've never really had to do this before, there is no doubt a better way
+                //to move an item to be back.
+                this.monkeys.Remove(traversedMonkey);
                 this.monkeys.Add(traversedMonkey);
             }
 
@@ -134,6 +148,10 @@ namespace MonkeyBusiness
         public List<string> Errors()
         {
             var tmpList = new List<string>();
+            foreach (string s in this.myErrors)
+            {
+                tmpList.Add(s);
+            }
             foreach (Monkey element in monkeys)
             {
                 tmpList.AddRange(element.Errors);
@@ -143,6 +161,7 @@ namespace MonkeyBusiness
         public String ErrorString()
         {
             var sblist = new System.Text.StringBuilder();
+            
             foreach (string s in this.Errors())
             {
                 sblist.AppendLine(s);
@@ -248,7 +267,7 @@ namespace MonkeyBusiness
             {
                 //monkey has crossed chasm, so count it.
                 CrossingCount += 1;
-
+                Console.WriteLine("This monkey has now crossed the chasm " + Convert.ToString(CrossingCount) + " times.");
                 //Move the monkey to the other side of the chasm.
                 switch (this.Side)
                 {

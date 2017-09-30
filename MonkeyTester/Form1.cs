@@ -56,6 +56,20 @@ namespace MonkeyTester
             }
         }
 
+        private void btnTestE_Click(object sender, EventArgs e)
+        {
+            txtbxOutput.Text = "";
+            if (!testE())
+            {
+                txtbxOutput.Text += "\r\ntestE Failed.";
+
+            }
+            else
+            {
+                txtbxOutput.Text += "\r\ntestE passed.";
+            }
+        }
+
         private void btnTest_Click(object sender, EventArgs e)
         {
             if (!testA())
@@ -177,6 +191,32 @@ namespace MonkeyTester
             }
         }
 
+        private bool testE()
+        {
+            var mm = new MonkeyBusiness.MonkeyManager();
+            mm.SetChasmCrossingMax(4);
+            for (int lr = 0; lr < 25; lr++)
+            {
+                mm.AddMonkey(MonkeyBusiness.CHASMSIDE.LEFT);
+                mm.AddMonkey(MonkeyBusiness.CHASMSIDE.RIGHT);
+            }
+
+            for (int i = 0; i < 1000; i++)
+            {
+                mm.MoveMonkeys(1);
+            }
+
+            txtbxOutput.Text += "\r\n" + mm.ErrorString();
+            if (mm.ErrorString() != "")
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         //Add some monkeys to the left side, and move them accross.
         private bool test1()
         {
@@ -193,6 +233,7 @@ namespace MonkeyTester
                 return true;
             }
         }
+
 
 
 
