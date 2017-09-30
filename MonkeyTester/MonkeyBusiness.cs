@@ -29,7 +29,7 @@ namespace MonkeyBusiness
         public MonkeyManager()
         {
             this.clear();
-            this.currentDirection  = CHASMSIDE.RIGHT
+            this.currentDirection = CHASMSIDE.RIGHT;
         }
 
 
@@ -40,6 +40,7 @@ namespace MonkeyBusiness
         /// <returns></returns>
         public Boolean MoveMonkeys(int moves)
         {
+            bool movedAMonkey = false;
             //A move contitutes moving a single monkey one space.
 
             //If the rope is clear, and the moving side can move at max 4 monkeys accross before the
@@ -51,17 +52,36 @@ namespace MonkeyBusiness
 
             //We don't need to iterate through all of the monkeys, at most 4.
 
-
-            for (int i = 1; i < CurrentDirectionQueueCount(); i++)
+            //Int32 move = 0;
+            //do
+            //{
+            //    move += 1;
+            //} while (move < moves);
+            MonkeyBusiness.Monkey traversedMonkey = null;
+            Int32 removeIndex = -1;
+            for (int i = 0; i < CurrentDirectionQueueCount(); i++)
             {
-                if (i > 4)
+                if (i >= 4)
                 {
                     break;
                 }
-
+                this.CurrentDirectionQueue()[i].SetNextPosition();
+                movedAMonkey = true;
+                //if the monkey has moved off of the rope, move them to the back of the line.
+                if (this.CurrentDirectionQueue()[i].Spot == POSITION.OFF)
+                {
+                    removeIndex = i;
+                    traversedMonkey = this.CurrentDirectionQueue()[i];
+                }
+            }
+            if (traversedMonkey != null)
+            {
+                
+                    this.CurrentDirectionQueue().RemoveAt(removeIndex);
+                    this.CurrentDirectionQueue().Add(traversedMonkey);
             }
 
-            return false; //not definedyet...
+            return movedAMonkey; 
         }
 
         public List<string> Errors()
@@ -111,12 +131,21 @@ namespace MonkeyBusiness
         {
             switch (this.currentDirection)
             {
-                case CHASMSIDE.LEFT:
-                    return LeftMonkeys().Count;
-                    break;
                 case CHASMSIDE.RIGHT:
+                    return LeftMonkeys().Count;
+                case CHASMSIDE.LEFT:
                     return RightMonkeys().Count;
-                    break;
+            }
+            return -1;
+        }
+        public List<Monkey> CurrentDirectionQueue()
+        {
+            switch (this.currentDirection)
+            {
+                case CHASMSIDE.RIGHT:
+                    return LeftMonkeys();
+                default:
+                    return RightMonkeys();
             }
 
         }

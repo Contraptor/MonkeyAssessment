@@ -27,6 +27,15 @@ namespace MonkeyTester
             {
                 txtbxOutput.Text += "\r\ntestA passed.";
             }
+            if (!testB())
+            {
+                txtbxOutput.Text += "\r\ntestB Failed.";
+
+            }
+            else
+            {
+                txtbxOutput.Text += "\r\ntestB passed.";
+            }
 
 
             if (!test1())
