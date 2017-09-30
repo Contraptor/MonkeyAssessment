@@ -17,15 +17,19 @@ namespace MonkeyBusiness
         private List<Monkey> monkeys;
         private List<string> myErrors;
         private Int32 _ChasmCrossingMax;
+        private Int32 _MonkeyCrossingCount;
+        private CHASMSIDE currentDirection;  //The direction monkeys are moving. Right means they're moving from left to right.
         private void clear()
         {
             monkeys = new List<Monkey>();
             myErrors = new List<string>();
-            _ChasmCrossingMax = 2;
+            this._ChasmCrossingMax = 2;
+            this._MonkeyCrossingCount = 0;
         }
         public MonkeyManager()
         {
             this.clear();
+            this.currentDirection  = CHASMSIDE.RIGHT
         }
 
 
@@ -36,14 +40,26 @@ namespace MonkeyBusiness
         /// <returns></returns>
         public Boolean MoveMonkeys(int moves)
         {
-            //if (moves <= 0)
-            //{
+            //A move contitutes moving a single monkey one space.
 
-            //}
-            //else
-            //{
-            //    for (i
-            //}
+            //If the rope is clear, and the moving side can move at max 4 monkeys accross before the
+            //other side gets to go.
+
+            //if there are fewer than the max number move that number accross.
+
+            //Once max number has crossed, the other side gets to go.
+
+            //We don't need to iterate through all of the monkeys, at most 4.
+
+
+            for (int i = 1; i < CurrentDirectionQueueCount(); i++)
+            {
+                if (i > 4)
+                {
+                    break;
+                }
+
+            }
 
             return false; //not definedyet...
         }
@@ -67,6 +83,15 @@ namespace MonkeyBusiness
             return sblist.ToString();
         }
 
+
+        //public Monkey MovingMonkeys(POSITION here)
+        //{
+        //    return (from m in monkeys
+        //            where m.Spot == here
+        //            select m).First()<Monkey>;
+
+        //}
+
         public List<Monkey> LeftMonkeys()
         {
             return (from m in monkeys
@@ -80,6 +105,20 @@ namespace MonkeyBusiness
             return (from m in monkeys
                     where m.Side == CHASMSIDE.RIGHT
                     select m).ToList();
+        }
+
+        public Int32 CurrentDirectionQueueCount()
+        {
+            switch (this.currentDirection)
+            {
+                case CHASMSIDE.LEFT:
+                    return LeftMonkeys().Count;
+                    break;
+                case CHASMSIDE.RIGHT:
+                    return RightMonkeys().Count;
+                    break;
+            }
+
         }
 
         public Int32 AddMonkey(CHASMSIDE sideToAddTo)

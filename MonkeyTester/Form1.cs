@@ -41,7 +41,7 @@ namespace MonkeyTester
         }
 
         /// <summary>
-        /// We need to start more elementa. Move a single monkey accross the rope from left to right...
+        /// We need to start more elementa. Move a single monkey accross the rope from left to right and back again...
         /// </summary>
         /// <returns></returns>
         private bool testA()
@@ -62,6 +62,21 @@ namespace MonkeyTester
                 txtbxOutput.Text += string.Join("\r\n",m.Errors.ToArray());
                 return false;
             }
+        }
+
+        //Add two monkeys to the left side, and move them accross
+        private bool testB()
+        {
+            var mm = new MonkeyBusiness.MonkeyManager();
+            mm.AddMonkey(MonkeyBusiness.CHASMSIDE.LEFT);
+            mm.AddMonkey(MonkeyBusiness.CHASMSIDE.LEFT);
+            for (int i = 0; i < 10; i++)
+            {
+                mm.MoveMonkeys(1);
+                //txtbxOutput.Text += "\r\n[" + Convert.ToString(i) + "] Moving Monkey from " + Enum.GetName(m.Spot.GetType(), m.Spot) + " to " + Enum.GetName(m.PeekNextPosition().GetType(), m.PeekNextPosition());
+               // m.SetNextPosition();
+            }
+            return false;
         }
 
         //Add some monkeys to the left side, and move them accross.
