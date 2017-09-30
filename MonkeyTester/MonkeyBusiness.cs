@@ -16,14 +16,46 @@ namespace MonkeyBusiness
     {
         private List<Monkey> monkeys;
 
-        //public List<Monkey> LeftMonkeys()
-        //{
+        private void clear()
+        {
+            monkeys = new List<Monkey>();
+        }
+        public MonkeyManager()
+        {
+            this.clear();
+        }
 
-        //}
-        //public List<Monkey> RightMonkeys()
-        //{
+        public List<Monkey> LeftMonkeys()
+        {
+            return (from m in monkeys
+                    where m.Side == CHASMSIDE.LEFT
+                    select m).ToList();
 
-        //}
+        }
+        public List<Monkey> RightMonkeys()
+        {
+
+            return (from m in monkeys
+                    where m.Side == CHASMSIDE.RIGHT
+                    select m).ToList();
+        }
+
+        public integer AddMonkey(CHASMSIDE sideToAddTo)
+        {
+            monkeys.Add(new Monkey(sideToAddTo));
+            switch (sideToAddTo)
+            {
+                case CHASMSIDE.LEFT:
+                    return LeftMonkeys().Count();
+
+                case CHASMSIDE.RIGHT:
+                    return RightMonkeys().Count();
+
+            }
+
+                  
+        }
+
     }
 
     class Monkey
@@ -40,7 +72,7 @@ namespace MonkeyBusiness
             this.CrossingCount = 0;
             this.Errors = new List<string>();
         }
-        public void Monkey(CHASMSIDE startingSide) 
+        public Monkey(CHASMSIDE startingSide) 
         {
             this.clear();
             this.Side = startingSide;
