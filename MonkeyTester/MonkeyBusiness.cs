@@ -16,15 +16,36 @@ namespace MonkeyBusiness
     {
         private List<Monkey> monkeys;
         private List<string> myErrors;
-
+        private Int32 _ChasmCrossingMax;
         private void clear()
         {
             monkeys = new List<Monkey>();
             myErrors = new List<string>();
+            _ChasmCrossingMax = 2;
         }
         public MonkeyManager()
         {
             this.clear();
+        }
+
+
+        /// <summary>
+        /// Move the specified number of moves. If 0 or fewer moves specified, move until chasm crossings is reached.
+        /// </summary>
+        /// <param name="howmanymoves"></param>
+        /// <returns></returns>
+        public Boolean MoveMonkeys(int moves)
+        {
+            //if (moves <= 0)
+            //{
+
+            //}
+            //else
+            //{
+            //    for (i
+            //}
+
+            return false; //not definedyet...
         }
 
         public List<string> Errors()
@@ -72,10 +93,10 @@ namespace MonkeyBusiness
                 case CHASMSIDE.RIGHT:
                     return RightMonkeys().Count();
                 default:
-                    myErrors.Add("AddMonkey(...), Unexpected side or return path");
+                    myErrors.Add("AddMonkey(...), Unexpected side or return path.");
                     return -1;
             }
-            myErrors.Add("AddMonkey(...), Unexpected side or return path");
+            myErrors.Add("AddMonkey(...), Unexpected side or return path..");
             return -1;
                   
         }
@@ -112,6 +133,7 @@ namespace MonkeyBusiness
                 //monkey has crossed chasm, so count it.
                 CrossingCount += 1;
             }
+            Console.WriteLine("Moving monkey from " + this.Spot + " to " + this.PeekNextPosition());
             this.Spot = this.PeekNextPosition();
         }
 
