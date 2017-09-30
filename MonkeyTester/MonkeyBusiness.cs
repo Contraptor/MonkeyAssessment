@@ -60,27 +60,71 @@ namespace MonkeyBusiness
             MonkeyBusiness.Monkey traversedMonkey = null;
             Int32 removeIndex = -1;
             POSITION priorPosition = POSITION.THREE;  //Keep trak of the prior position, if we're ever moving from this position, we can esc.
-            for (int i = 0; i < CurrentDirectionQueueCount(); i++)
+            POSITION nextPostion = POSITION.THREE; //CurrentDirectionQueue returns different value after we call SetNextPostion in some cases.
+
+            Int32 i = 0;
+            Console.WriteLine("----Moving MOnkeys----");
+            Int32 queueCount = CurrentDirectionQueueCount();
+            foreach (Monkey element in CurrentDirectionQueue())
             {
-                if ((i >= 4) || (i != 0 && (this.CurrentDirectionQueue()[i].Spot == priorPosition)))
+
+            //for (int i = 0; i < CurrentDirectionQueueCount() - _MonkeyCrossingCount; i++)
+            //{
+                if ((i > 4) || (i != 0 && (element.Spot == priorPosition)))
                 {
                     break;
                 }
-                priorPosition = this.CurrentDirectionQueue()[i].Spot;
-                this.CurrentDirectionQueue()[i].SetNextPosition();
+                priorPosition = element.Spot;
+                nextPostion = element.PeekNextPosition();
+                element.SetNextPosition();
                 movedAMonkey = true;
                 //if the monkey has moved off of the rope, move them to the back of the line.
-                if (this.CurrentDirectionQueue()[i].Spot == POSITION.OFF)
+                if (element.Spot == POSITION.OFF)
                 {
                     removeIndex = i;
-                    traversedMonkey = this.CurrentDirectionQueue()[i];
+                    traversedMonkey = element;
+                    _MonkeyCrossingCount += 1;
+                    //if ((_MonkeyCrossingCount == 4) || (i == (CurrentDirectionQueueCount() - _MonkeyCrossingCount)))
+                    if (i == (queueCount - _MonkeyCrossingCount) || queueCount == 1)
+                    {
+                        //max number of monkeys have cross in this direction, so be fair and share.
+                        _MonkeyCrossingCount = 0;  //reset to zero
+
+                        //Switch direction.
+                        if (this.currentDirection == CHASMSIDE.RIGHT )
+                        {
+                            this.currentDirection  = CHASMSIDE.LEFT;
+                            Console.WriteLine("Switching directions from RIGHT to LEFT.");
+                        } else {
+                            this.currentDirection  = CHASMSIDE.RIGHT;
+                            Console.WriteLine("Switching directions from LEFT to RIGHT.");
+                        }
+                    }
                 }
+                i += 1;
             }
+
+            //if (i == (queueCount - _MonkeyCrossingCount))
+            //{
+            //    //max number of monkeys have cross in this direction, so be fair and share.
+            //    _MonkeyCrossingCount = 0;  //reset to zero
+
+            //    //Switch direction.
+            //    if (this.currentDirection == CHASMSIDE.RIGHT)
+            //    {
+            //        this.currentDirection = CHASMSIDE.LEFT;
+            //    }
+            //    else
+            //    {
+            //        this.currentDirection = CHASMSIDE.RIGHT;
+            //    }
+            //}
+
             if (traversedMonkey != null)
             {
-                
-                    this.CurrentDirectionQueue().RemoveAt(removeIndex);
-                    this.CurrentDirectionQueue().Add(traversedMonkey);
+
+                this.monkeys.Remove(this.monkeys.First());
+                this.monkeys.Add(traversedMonkey);
             }
 
             return movedAMonkey; 
@@ -255,7 +299,7 @@ namespace MonkeyBusiness
                     }
                     else
                     {
-                        return this.Spot -= 1;
+                        return this.Spot - 1;
                     }
                     //break;
                 default:
