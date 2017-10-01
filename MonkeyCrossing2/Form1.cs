@@ -39,5 +39,45 @@ namespace MonkeyCrossing2
         {
             lblRight.Text = string.Format("Monkeys:{0}", mm.RightMonkeys().Count());
         }
+
+        private void btnAddLeft_Click(object sender, EventArgs e)
+        {
+            mm.AddMonkey(MonkeyBusiness.CHASMSIDE.LEFT);
+            UpdateLeftLabel();
+        }
+
+        private void btnAddRight_Click(object sender, EventArgs e)
+        {
+            mm.AddMonkey(MonkeyBusiness.CHASMSIDE.RIGHT);
+            UpdateRightLabel();
+        }
+
+        private void btnMoveMonkeys_Click(object sender, EventArgs e)
+        {
+            mm.MoveMonkeys(1);
+            txt1.Text = "";
+            txt2.Text = "";
+            txt3.Text = "";
+            for (int i=0; i< 4; i++)
+            {
+                switch (mm.CurrentDirectionQueue()[i].Spot)
+                {
+                    case MonkeyBusiness.POSITION.ONE:
+                        txt1.Text = "☺";
+                            break;
+                    case MonkeyBusiness.POSITION.TWO:
+                            txt2.Text = "☺";
+                            break;
+                    case MonkeyBusiness.POSITION.THREE:
+                            txt3.Text = "☺";
+                            break;
+                    //default:
+                        //do nothing.
+                           // break;
+                }
+                UpdateLeftLabel();
+                UpdateRightLabel();
+            }
+        }
     }
 }
