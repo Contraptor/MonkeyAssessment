@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonkeyTester", "MonkeyTester\MonkeyTester.csproj", "{287F96B8-86D1-46AE-80A6-B9FAE5E0C4E5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonkeyCrossing2", "MonkeyCrossing2\MonkeyCrossing2.csproj", "{A45B222A-6BA4-4480-9E82-2C1EDB3C5BDF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{287F96B8-86D1-46AE-80A6-B9FAE5E0C4E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{287F96B8-86D1-46AE-80A6-B9FAE5E0C4E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{287F96B8-86D1-46AE-80A6-B9FAE5E0C4E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A45B222A-6BA4-4480-9E82-2C1EDB3C5BDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A45B222A-6BA4-4480-9E82-2C1EDB3C5BDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A45B222A-6BA4-4480-9E82-2C1EDB3C5BDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A45B222A-6BA4-4480-9E82-2C1EDB3C5BDF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
